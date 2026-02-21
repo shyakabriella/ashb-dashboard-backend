@@ -2,7 +2,14 @@
 
 return [
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // ✅ Include admin routes too
+    'paths' => [
+        'api/*',
+        'admin/*',
+        'sanctum/csrf-cookie',
+        'login',
+        'logout',
+    ],
 
     'allowed_methods' => ['*'],
 
@@ -23,7 +30,7 @@ return [
 
     'max_age' => 86400,
 
-    // ✅ must be true when using credentials: "include"
+    // ✅ keep true if frontend sends cookies or credentials
     'supports_credentials' => true,
 
 ];
