@@ -16,10 +16,12 @@ return [
     'allowed_origins' => [
         'http://localhost:5173',
         'http://127.0.0.1:5173',
+        'http://localhost:5174',
         'https://www.user.ashbhub.com',
         'https://user.ashbhub.com',
         'https://www.ashbhub.com',
         'https://ashbhub.com',
+        'https://olympichotel.rw',
     ],
 
     'allowed_origins_patterns' => [],
