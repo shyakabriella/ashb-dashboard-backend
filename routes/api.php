@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\Admin\UserAdminController;
 use App\Http\Controllers\API\HomeSectionOneController;
-use App\Http\Controllers\API\RoomController; // ✅ added
+use App\Http\Controllers\API\RoomController;
+use App\Http\Controllers\API\PropertyController; 
 
 Route::controller(RegisterController::class)->group(function () {
     Route::post('register', 'register');
@@ -32,19 +33,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('admin/users', [UserAdminController::class, 'index']);
 
-    // ✅ Home Section One (resource)
     Route::get('admin/property/home-section-one/current', [HomeSectionOneController::class, 'current']);
     Route::apiResource('admin/property/home-section-one', HomeSectionOneController::class)
         ->names('home-section-one');
 
-    // ✅ Rooms (admin/property)
+    // ✅ Properties (now works)
+    Route::apiResource('admin/property/properties', PropertyController::class)
+        ->names('admin-property-properties');
+
+    // ✅ Alias (optional)
+    Route::apiResource('properties', PropertyController::class)
+        ->names('properties');
+
     Route::apiResource('admin/property/rooms', RoomController::class)
         ->names('admin-property-rooms');
 
-    /**
-     * ✅ Optional alias (temporary) for your React component if it still calls /api/rooms
-     * You can remove this later after changing frontend endpoint to /api/admin/property/rooms
-     */
     Route::apiResource('rooms', RoomController::class)
         ->names('rooms');
 });
@@ -52,5 +55,5 @@ Route::middleware('auth:sanctum')->group(function () {
 // ✅ Public route
 Route::get('home/section-one', [HomeSectionOneController::class, 'showPublic']);
 
-// ✅ Public Rooms route (for hotel website)
+// ✅ Public Rooms route
 Route::get('home/rooms', [RoomController::class, 'index']);

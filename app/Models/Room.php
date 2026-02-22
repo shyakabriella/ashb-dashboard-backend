@@ -10,8 +10,17 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
+        'property_id',
+
+        // ✅ support old/new DB column names
         'name',
+        'room_name',
+        'title',
+
         'description',
+        'room_description',
+        'details',
+
         'is_active',
         'sort_order',
     ];
@@ -21,8 +30,13 @@ class Room extends Model
         'sort_order' => 'integer',
     ];
 
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
+
     public function images()
     {
-        return $this->hasMany(RoomImage::class)->orderBy('sort_order');
+        return $this->hasMany(RoomImage::class);
     }
 }

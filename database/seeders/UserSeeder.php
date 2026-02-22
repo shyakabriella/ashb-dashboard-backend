@@ -16,23 +16,53 @@ class UserSeeder extends Seeder
         Role::firstOrCreate(['name' => 'manager']);
         Role::firstOrCreate(['name' => 'waiters']);
 
-        $adminEmail = 'admin@ashbhub.com';
-        $adminPassword = 'Admin@12345';
-
+        // ==============================
+        // 1) System Admin
+        // ==============================
         $admin = User::updateOrCreate(
-            ['email' => $adminEmail],
+            ['email' => 'admin@ashbhub.com'],
             [
-                'name' => 'System Admin',
-                'password' => Hash::make($adminPassword),
-
-                // ✅ IMPORTANT: set role column here
-                'role' => 'admin',
+                'name'     => 'System Admin',
+                'password' => Hash::make('Admin@0123'),
+                'role'     => 'admin', // ✅ column in users table
             ]
         );
 
-        // ✅ Set Spatie role too (sync to avoid duplicates)
+        // ✅ Assign Spatie role
         if (method_exists($admin, 'syncRoles')) {
             $admin->syncRoles(['admin']);
+        }
+
+        // ==============================
+        // 2) Royal Crown (Manager)
+        // ==============================
+        $royalCrown = User::updateOrCreate(
+            ['email' => 'admin@royalcrown.rw'],
+            [
+                'name'     => 'Royal Crown',
+                'password' => Hash::make('Admin@123'),
+                'role'     => 'manager',
+            ]
+        );
+
+        if (method_exists($royalCrown, 'syncRoles')) {
+            $royalCrown->syncRoles(['manager']);
+        }
+
+        // ==============================
+        // 3) Olympic Hotel (Manager)
+        // ==============================
+        $olympicHotel = User::updateOrCreate(
+            ['email' => 'admin@olympichotel.rw'],
+            [
+                'name'     => 'Olympic Hotel',
+                'password' => Hash::make('Admin@123'),
+                'role'     => 'manager',
+            ]
+        );
+
+        if (method_exists($olympicHotel, 'syncRoles')) {
+            $olympicHotel->syncRoles(['manager']);
         }
     }
 }
