@@ -23,6 +23,8 @@ return [
         'https://ashbhub.com',
         'https://olympichotel.rw',
         'https://www.olympichotel.rw',
+        'https://www.dashboard.olympichotel.rw',
+        'https://dashboard.olympichotel.rw',
     ],
 
     'allowed_origins_patterns' => [],
